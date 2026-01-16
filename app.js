@@ -3,6 +3,7 @@ const searchInput = document.querySelector('input')
 const searchResultsList = document.querySelector('#search-results')
 
 searchButton.addEventListener('click', async (e) => {
+    searchResultsList.innerHTML = "<p>Searching...</p>"
     const params = new URLSearchParams();
     params.append("query", searchInput.value);
     const response = await fetch(`https://handmade-api-34lhk.ondigitalocean.app/search?${params}`, {
