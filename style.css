@@ -14,6 +14,24 @@
     gap: 0px;
 }
 
+#search-results {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-hostname {
+    padding: 0px;
+    margin: 0px;
+    color: gray;
+}
+
 body {
     margin: 30px;
 }
