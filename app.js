@@ -7,7 +7,15 @@ if (location.hostname == "localhost" || location.hostname == "127.0.0.1") {
     api = "http://127.0.0.1:5000"
 }
 
-searchButton.addEventListener('click', async (e) => {
+searchButton.addEventListener('click', search)
+searchInput.addEventListener('keyup', (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        searchButton.click()
+    }
+})
+
+async function search(event) {
     searchResultsList.innerHTML = "<p>Searching...</p>"
     const params = new URLSearchParams();
     params.append("query", searchInput.value);
@@ -50,4 +58,4 @@ searchButton.addEventListener('click', async (e) => {
     }
 
     console.log(data['results'])
-})
+}
