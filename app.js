@@ -27,7 +27,6 @@ async function search(event) {
     const data = await response.json()
     const results = data['results']
 
-
     searchResultsList.innerHTML = ""
 
     for (const element of results) {
@@ -55,6 +54,10 @@ async function search(event) {
         elementContainer.className = "search-result"
 
         searchResultsList.appendChild(elementContainer)
+    }
+
+    if (results.length == 0) {
+        searchResultsList.innerHTML = `<p>There are no entries with ALL the words in your query.</p>`
     }
 
     console.log(data['results'])
