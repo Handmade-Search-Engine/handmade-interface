@@ -1,4 +1,5 @@
-const searchButton = document.querySelector('button')
+const searchButton = document.querySelector('#search-button')
+const randomButton = document.querySelector('#random-button')
 const searchInput = document.querySelector('input')
 const searchResultsList = document.querySelector('#search-results')
 
@@ -14,6 +15,16 @@ searchInput.addEventListener('keyup', (e) => {
         searchButton.click()
     }
 })
+randomButton.addEventListener('click', random)
+
+async function random(event) {
+    console.log("RANDOM CLICKED")
+    const response = await fetch(`${api}/random`, {
+        method: "GET"
+    });
+    const data = await response.json()
+    window.location = data.url
+}
 
 async function search(event) {
     searchResultsList.innerHTML = "<p>Searching...</p>"
