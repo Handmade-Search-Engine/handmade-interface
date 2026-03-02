@@ -18,12 +18,12 @@ searchInput.addEventListener('keyup', (e) => {
 randomButton.addEventListener('click', random)
 
 async function random(event) {
-    console.log("RANDOM CLICKED")
+    randomButton.textContent = "Redirecting..."
     const response = await fetch(`${api}/random`, {
         method: "GET"
     });
     const data = await response.json()
-    window.location = data.url
+    window.location = data['url']['url']
 }
 
 async function search(event) {

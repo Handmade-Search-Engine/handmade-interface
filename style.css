@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+#random-button {
+    margin-top: 10px;
+}
+
 .links {
     position: absolute;
     top: 20px;
