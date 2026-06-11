@@ -3,12 +3,23 @@ const randomButton = document.querySelector('#random-button')
 const searchInput = document.querySelector('input')
 const searchResultsList = document.querySelector('#search-results')
 
+document.addEventListener('DOMContentLoaded', (e) => {
+    let params = new URL(document.location.toString()).searchParams;
+    let query = params.get('query')
+
+    if (query == null || query == undefined) {
+        return
+    } else {
+        search(e)
+    }
+})
+
 let api = "https://handmade-api-34lhk.ondigitalocean.app"
 if (location.hostname == "localhost" || location.hostname == "127.0.0.1") {
     api = "http://127.0.0.1:5000"
 }
 
-searchButton.addEventListener('click', search)
+searchButton.addEventListener('click', searchButtonPressed)
 searchInput.addEventListener('keyup', (e) => {
     if (e.key === "Enter") {
         e.preventDefault();
@@ -26,10 +37,19 @@ async function random(event) {
     window.location = data['url']['url']
 }
 
-async function search(event) {
-    searchResultsList.innerHTML = "<p>Searching...</p>"
+async function searchButtonPressed(event) {
     const params = new URLSearchParams();
     params.append("query", searchInput.value);
+    window.location.href = `${window.location.pathname}?${params}`
+}
+
+async function search(event) {
+    searchResultsList.innerHTML = "<p>Searching...</p>"
+    let params = new URL(document.location.toString()).searchParams;
+    let query = params.get('query')
+
+    searchInput.value = query
+
     const response = await fetch(`${api}/search?${params}`, {
         method: "GET"
     });
