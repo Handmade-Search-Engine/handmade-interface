@@ -61,12 +61,12 @@ async function search(event) {
     searchResultsList.innerHTML = ""
 
     for (const element of results) {
-        let title = element[1]['title']
+        let title = element[0]['title']
         if (title == undefined) {
             title = element[0]
         }
-        let hostname = element[1]['hostname']
-        let url = element[0]
+        let hostname = element[0]
+        let url = 'https://' + element[0]
 
         let hostnameElement = document.createElement("p")
         let hostnameTextNode = document.createTextNode(hostname)
@@ -79,9 +79,22 @@ async function search(event) {
         urlElement.className = "result-url"
         urlElement.href = url
 
+        let childrenPageList = document.createElement("ol")
+        let childPages = element[1]['pages']
+        childPages.forEach(page => {
+            let pageElement = document.createElement('li')
+            let pageURLElement = document.createElement("a") 
+            let pageURLTextNode = document.createTextNode(page[1]['title']) 
+            pageURLElement.appendChild(pageURLTextNode)
+            pageURLElement.href = page[0]
+            pageElement.appendChild(pageURLElement)
+            childrenPageList.appendChild(pageElement)
+        });
+
         let elementContainer = document.createElement("div")
         elementContainer.appendChild(hostnameElement)
         elementContainer.appendChild(urlElement)
+        elementContainer.appendChild(childrenPageList)
         elementContainer.className = "search-result"
 
         searchResultsList.appendChild(elementContainer)

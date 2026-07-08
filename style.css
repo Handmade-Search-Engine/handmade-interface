@@ -35,6 +35,10 @@
     margin: 0px;
     color: gray;
 }
+.result-url {
+    font-size: larger;
+    text-transform: uppercase;
+}
 
 body {
     margin: 30px;
