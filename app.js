@@ -61,39 +61,60 @@ async function search(event) {
     searchResultsList.innerHTML = ""
 
     for (const element of results) {
-        let title = element[0]['title']
+        let title = element[1]['title']
+        let description = element[1]['description']
         if (title == undefined) {
             title = element[0]
         }
         let hostname = element[0]
         let url = 'https://' + element[0]
 
-        let hostnameElement = document.createElement("p")
-        let hostnameTextNode = document.createTextNode(hostname)
-        hostnameElement.appendChild(hostnameTextNode)
-        hostnameElement.className = "result-hostname"
+        let elementContainer = document.createElement("div")
+        let divResultsHeader = document.createElement("div")
+        divResultsHeader.className = 'result-header'
+
+        let faviconElement = document.createElement("img")
+        faviconElement.className = 'result-favicon'
+        faviconElement.src = `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${hostname}&size=64`
+        divResultsHeader.appendChild(faviconElement)
+
+        let divResultsHeaderText = document.createElement("div")
+        divResultsHeaderText.className = 'result-header-text'
 
         let urlElement = document.createElement("a")
         let urlTextNode = document.createTextNode(title)
         urlElement.appendChild(urlTextNode)
         urlElement.className = "result-url"
         urlElement.href = url
+        divResultsHeaderText.appendChild(urlElement)
+
+        let hostnameElement = document.createElement("p")
+        let hostnameTextNode = document.createTextNode(hostname)
+        hostnameElement.appendChild(hostnameTextNode)
+        hostnameElement.className = "result-hostname"
+        divResultsHeaderText.appendChild(hostnameElement)
+
+        divResultsHeader.appendChild(divResultsHeaderText)
+        elementContainer.appendChild(divResultsHeader)
+
+        let websiteDescription = document.createElement("p")
+        let websiteDescriptionTextNode = document.createTextNode(description || "No description")
+        websiteDescription.appendChild(websiteDescriptionTextNode)
+        elementContainer.appendChild(websiteDescription)
 
         let childrenPageList = document.createElement("ol")
         let childPages = element[1]['pages']
         childPages.forEach(page => {
             let pageElement = document.createElement('li')
             let pageURLElement = document.createElement("a") 
-            let pageURLTextNode = document.createTextNode(page[1]['title']) 
+            let pageURLTextNode = document.createTextNode(`~${page[1]['path']}`) 
             pageURLElement.appendChild(pageURLTextNode)
             pageURLElement.href = page[0]
             pageElement.appendChild(pageURLElement)
             childrenPageList.appendChild(pageElement)
         });
+        childrenPageList.className = 'search-result-subpages'
 
-        let elementContainer = document.createElement("div")
-        elementContainer.appendChild(hostnameElement)
-        elementContainer.appendChild(urlElement)
         elementContainer.appendChild(childrenPageList)
         elementContainer.className = "search-result"
 
