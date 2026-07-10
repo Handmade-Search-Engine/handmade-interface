@@ -13,6 +13,27 @@ input {
     font-family: "Space Mono", monospace;
 }
 
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+#search-button {
+    background-color: white;
+    border: 2px #F9F2EF solid;
+    font-family: "Space Mono", monospace;
+    padding: 15px;
+    transition: all 0.1s ease-in-out;
+}
+
+#search-button:hover {
+    background-color: #F9F2EF;
+    border: 2px #F9F2EF solid;
+    font-family: "Space Mono", monospace;
+    padding: 15px;
+    cursor: pointer;
+}
+
 .search {
     justify-content: center;
     align-items: center;
@@ -38,6 +59,11 @@ input {
 
 #random-button {
     margin-top: 10px;
+}
+
+#random-button:hover {
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .links {
